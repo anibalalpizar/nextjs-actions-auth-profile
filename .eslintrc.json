@@ -1,6 +1,22 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
   "rules": {
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "indent": ["error", 2],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-debugger": "warn",
+    "prefer-const": "warn",
+    "no-var": "error",
+    "eqeqeq": ["error", "always"],
+    "arrow-body-style": ["error", "as-needed"],
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "never"],
+    "no-trailing-spaces": "error",
+    "eol-last": ["error", "always"]
   }
 }
