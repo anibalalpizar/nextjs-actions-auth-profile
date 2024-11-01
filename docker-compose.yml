@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  nextjs-inventory:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+    volumes:
+      - ./:/usr/src/app
+
+  sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - '1433:1433'
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=yourStrong#Password
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+volumes:
+  sqlserver_data:
