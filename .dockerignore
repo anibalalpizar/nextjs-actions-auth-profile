@@ -5,3 +5,4 @@ node_modules
 .prettierrc
 Dockerfile
 README.md
+/prisma/migrations
