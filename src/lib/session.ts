@@ -1,7 +1,8 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
+import prisma from './prisma';
 
-const { SECRET_COOKIE_PASSWORD, SESSION_NAME } = process.env;
+const { SESSION_SECRET, SESSION_NAME } = process.env;
 
 type Session = {
   id?: number;
@@ -12,7 +13,7 @@ export async function getSession() {
   const cookieStore = await cookies();
 
   const session = await getIronSession<Session>(cookieStore, {
-    password: SECRET_COOKIE_PASSWORD!,
+    password: SESSION_SECRET!,
     cookieName: SESSION_NAME!,
   });
   return session;
@@ -21,9 +22,19 @@ export async function getSession() {
 export async function getAuthenticatedSession() {
   const session = await getSession();
 
-  if (!session.id) return null;
+  const userId = session.id;
 
-  return session;
+  if (!userId) return null;
+
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!user) return null;
+
+  return user;
 }
 
 export async function setSession(data: Session) {
