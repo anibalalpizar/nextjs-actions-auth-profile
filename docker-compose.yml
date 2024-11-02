@@ -19,7 +19,7 @@ services:
       - '1433:1433'
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=yourStrong#Password
+      - MSSQL_SA_PASSWORD=Password123
     volumes:
       - sqlserver_data:/var/opt/mssql
 
