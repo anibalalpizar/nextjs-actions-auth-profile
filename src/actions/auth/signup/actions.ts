@@ -30,7 +30,7 @@ export const signup = async (formData: FormData) => {
   const userCreated = await prisma.user.create({
     data: {
       name: parseData.data.name,
-      email: parseData.data.email,
+      email: parseData.data.email.toLowerCase(),
       password: passwordHash,
     },
   });
