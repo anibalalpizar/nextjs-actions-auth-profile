@@ -8,7 +8,7 @@ export default async function HomeLayout({
 }>) {
   const user = await getAuthenticatedSession();
 
-  if (!user) return redirect('/login');
+  if (!user) return redirect('/signin');
 
   return children;
 }
