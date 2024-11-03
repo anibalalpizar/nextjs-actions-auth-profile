@@ -49,3 +49,9 @@ export async function setSession(data: Session) {
 
   await session.save();
 }
+
+export async function removeSession() {
+  const session = await getSession();
+
+  session.destroy();
+}
