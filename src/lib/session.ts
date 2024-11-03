@@ -2,7 +2,7 @@ import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
 import prisma from './prisma';
 
-const { SESSION_SECRET, SESSION_NAME } = process.env;
+const { SESSION_SECRET, SESSION_NAME, NODE_ENV } = process.env;
 
 type Session = {
   id?: number;
@@ -15,6 +15,10 @@ export async function getSession() {
   const session = await getIronSession<Session>(cookieStore, {
     password: SESSION_SECRET!,
     cookieName: SESSION_NAME!,
+    cookieOptions: {
+      secure: NODE_ENV === 'production',
+      httpOnly: NODE_ENV === 'production',
+    },
   });
   return session;
 }
