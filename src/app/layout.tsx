@@ -1,6 +1,7 @@
+import { Toaster } from '@/components/ui/toaster';
+import { ensureStartsWith } from '@/lib/utils';
 import localFont from 'next/font/local';
 import './globals.css';
-import { ensureStartsWith } from '@/lib/utils';
 
 const { SITE_NAME, GITHUB_CREATOR, PORFOLIO_SITE } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -33,7 +34,7 @@ export const metadata = {
     index: true,
   },
   ...(githubCreator &&
-    portfolioSite && {
+  portfolioSite && {
     github: {
       card: 'summary_large_image',
       creator: githubCreator,
@@ -48,11 +49,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
-      <body suppressHydrationWarning
+    <html lang="en">
+      <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <main>{children}</main>
+        <Toaster />
       </body>
     </html>
   );
