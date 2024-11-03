@@ -9,7 +9,7 @@ type Session = {
   email?: string;
 };
 
-export async function getSession() {
+async function getSession() {
   const cookieStore = await cookies();
 
   const session = await getIronSession<Session>(cookieStore, {
