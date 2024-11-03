@@ -1,18 +1,24 @@
 'use client';
 
 import { signup } from '@/actions/auth/signup/actions';
+import SubmitButton from '@/components/common/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PASSWORD_MIN_LENGTH } from '@/constants';
+import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
-import SubmitButton from './submit-button';
 
 function SignupForm() {
+  const { toast } = useToast();
+
   async function action(formData: FormData) {
     const res = await signup(formData);
 
     if (res.error) {
-      alert(res.error);
+      toast({
+        title: 'Error',
+        description: res.error,
+      });
     }
   }
   return (
