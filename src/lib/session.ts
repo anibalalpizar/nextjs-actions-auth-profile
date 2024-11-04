@@ -1,6 +1,7 @@
 import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
-import prisma from './prisma';
+import { prisma } from './prisma';
+import { cache } from 'react';
 
 const { SESSION_SECRET, SESSION_NAME, NODE_ENV } = process.env;
 
@@ -9,7 +10,7 @@ type Session = {
   email?: string;
 };
 
-async function getSession() {
+const getSession = cache(async () => {
   const cookieStore = await cookies();
 
   const session = await getIronSession<Session>(cookieStore, {
@@ -21,9 +22,9 @@ async function getSession() {
     },
   });
   return session;
-}
+});
 
-export async function getAuthenticatedSession() {
+export const getAuthenticatedSession = cache(async () => {
   const session = await getSession();
 
   const userId = session.id;
@@ -39,19 +40,19 @@ export async function getAuthenticatedSession() {
   if (!user) return null;
 
   return user;
-}
+});
 
-export async function setSession(data: Session) {
+export const setSession = async (data: Session) => {
   const session = await getSession();
 
   session.id = data.id;
   session.email = data.email;
 
   await session.save();
-}
+};
 
-export async function removeSession() {
+export const removeSession = async () => {
   const session = await getSession();
 
   session.destroy();
-}
+};
