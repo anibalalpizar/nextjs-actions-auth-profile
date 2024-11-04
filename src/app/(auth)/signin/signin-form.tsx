@@ -4,22 +4,14 @@ import { signin } from '@/actions/auth/actions';
 import SubmitButton from '@/components/common/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
-import React from 'react';
+import { handleClientError } from '@/lib/errorHandler';
 
 function SigninForm() {
-  const { toast } = useToast();
-
   async function action(formData: FormData) {
-    const res = await signin(formData);
+    const { error } = await signin(formData);
 
-    if (res.error) {
-      toast({
-        title: 'Error',
-        description: res.error,
-      });
-    }
+    if (error) handleClientError(error);
   }
 
   return (
