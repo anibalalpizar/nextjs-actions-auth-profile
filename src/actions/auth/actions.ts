@@ -1,13 +1,12 @@
 'use server';
 
+import { compare, encrypt } from '@/lib/encrypt';
+import { prisma } from '@/lib/prisma';
 import {
-  compare,
-  encrypt,
   getAuthenticatedSession,
-  prisma,
   removeSession,
   setSession,
-} from '@/lib';
+} from '@/lib/session';
 import { signinSchema, signupSchema } from '@/schemas/authSchema';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
