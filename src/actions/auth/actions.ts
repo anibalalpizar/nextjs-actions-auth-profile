@@ -1,13 +1,15 @@
 'use server';
 
-import { compare, encrypt } from '@/lib/encrypt';
-import prisma from '@/lib/prisma';
 import {
+  compare,
+  encrypt,
   getAuthenticatedSession,
+  prisma,
   removeSession,
   setSession,
-} from '@/lib/session';
+} from '@/lib';
 import { signinSchema, signupSchema } from '@/schemas/authSchema';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export const signin = async (formData: FormData) => {
@@ -57,6 +59,7 @@ export const signin = async (formData: FormData) => {
     email: userExists.email,
   });
 
+  revalidatePath('/');
   return redirect('/');
 };
 
@@ -94,6 +97,7 @@ export const signup = async (formData: FormData) => {
     email: userCreated.email,
   });
 
+  revalidatePath('/');
   return redirect('/');
 };
 
