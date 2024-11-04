@@ -5,21 +5,14 @@ import SubmitButton from '@/components/common/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PASSWORD_MIN_LENGTH } from '@/constants';
-import { useToast } from '@/hooks/use-toast';
+import { handleClientError } from '@/lib/errorHandler';
 import Link from 'next/link';
 
 function SignupForm() {
-  const { toast } = useToast();
-
   async function action(formData: FormData) {
-    const res = await signup(formData);
+    const { error } = await signup(formData);
 
-    if (res.error) {
-      toast({
-        title: 'Error',
-        description: res.error,
-      });
-    }
+    if (error) handleClientError(error);
   }
   return (
     <form action={action}>
