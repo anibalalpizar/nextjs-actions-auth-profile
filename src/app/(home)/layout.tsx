@@ -1,3 +1,4 @@
+import { Navbar } from '@/components/layout/navbar';
 import { getAuthenticatedSession } from '@/lib/session';
 import { redirect } from 'next/navigation';
 
@@ -10,5 +11,12 @@ export default async function HomeLayout({
 
   if (!user) return redirect('/signin');
 
-  return children;
+  return (
+    <>
+      <nav className="flex flex-col items-center justify-center">
+        <Navbar />
+      </nav>
+      <main className="container mx-auto">{children}</main>
+    </>
+  );
 }
