@@ -1,6 +1,6 @@
 'use client';
 
-import { signin } from '@/actions/auth/signin/actions';
+import { signin } from '@/actions/auth/actions';
 import SubmitButton from '@/components/common/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
