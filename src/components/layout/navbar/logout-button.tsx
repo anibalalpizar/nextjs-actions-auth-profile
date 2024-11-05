@@ -17,9 +17,12 @@ import { useState } from 'react';
 
 export default function LogoutButton() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function logout() {
+    setLoading(true);
     await signout();
+    setLoading(false);
   }
 
   return (
@@ -30,9 +33,10 @@ export default function LogoutButton() {
           event.preventDefault();
           setIsDialogOpen(true);
         }}
+        disabled={loading}
       >
         <LogOut className="mr-2 h-4 w-4" />
-        <span>Log out</span>
+        {loading ? 'Logging out...' : 'Log out'}
       </DropdownMenuItem>
 
       <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
