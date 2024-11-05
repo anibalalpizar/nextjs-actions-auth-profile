@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { ensureStartsWith } from '@/lib/utils';
 import localFont from 'next/font/local';
@@ -34,7 +35,7 @@ export const metadata = {
     index: true,
   },
   ...(githubCreator &&
-  portfolioSite && {
+    portfolioSite && {
     github: {
       card: 'summary_large_image',
       creator: githubCreator,
@@ -54,8 +55,15 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main>{children}</main>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main>{children}</main>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
