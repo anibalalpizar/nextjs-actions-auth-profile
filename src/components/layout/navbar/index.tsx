@@ -1,16 +1,15 @@
 'use client';
 
-import * as React from 'react';
-import Link from 'next/link';
-import { Menu } from 'lucide-react';
-
+import { ModeToggle } from '@/components/common/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
-  SheetTrigger,
   SheetTitle,
+  SheetTrigger,
 } from '@/components/ui/sheet';
+import { Menu } from 'lucide-react';
+import Link from 'next/link';
 import { MobileNav } from './mobile-menu';
 import { NavigationMenuDemo } from './navigation-menu-demo';
 import { UserNav } from './user-nav';
@@ -35,11 +34,13 @@ export function Navbar() {
           </SheetContent>
         </Sheet>
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <span className="hidden font-bold sm:inline-block">My App</span>
+          <span className="hidden font-bold sm:inline-block">
+            Next.js Starter
+          </span>
         </Link>
         <NavigationMenuDemo />
         <div className="flex items-center space-x-4">
-          {/* <ThemeToggle /> */}
+          <ModeToggle />
           <UserNav />
         </div>
       </div>
