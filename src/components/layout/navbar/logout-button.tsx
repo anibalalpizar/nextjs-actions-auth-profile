@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { signout } from '@/actions/auth/actions';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,7 +11,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { signout } from '@/actions/auth/actions';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { LogOut } from 'lucide-react';
+import { useState } from 'react';
 
 export default function LogoutButton() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -24,12 +25,14 @@ export default function LogoutButton() {
   return (
     <>
       <DropdownMenuItem
+        className="text-red-600 focus:text-red-600"
         onSelect={event => {
           event.preventDefault();
           setIsDialogOpen(true);
         }}
       >
-        Log out
+        <LogOut className="mr-2 h-4 w-4" />
+        <span>Log out</span>
       </DropdownMenuItem>
 
       <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
