@@ -1,3 +1,7 @@
+import Link from 'next/link';
+import type { User } from '@prisma/client';
+import { Menu, Settings, User as UserIcon } from 'lucide-react';
+
 import { ModeToggle } from '@/components/common/ThemeToggle';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -24,11 +28,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Menu, Settings, User } from 'lucide-react';
-import Link from 'next/link';
 import LogoutButton from './logout-button';
 
-export function Navbar() {
+export function Navbar({ user }: { user: User }) {
   const menuItems = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
@@ -100,16 +102,18 @@ export function Navbar() {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Jane Doe</p>
+                  <p className="text-sm font-medium leading-none">
+                    {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+                  </p>
                   <p className="text-xs leading-none text-muted-foreground">
-                    jane.doe@example.com
+                    {user.email}
                   </p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
+                  <UserIcon className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
