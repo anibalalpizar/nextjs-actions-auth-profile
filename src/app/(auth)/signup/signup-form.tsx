@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PASSWORD_MIN_LENGTH } from '@/constants';
 import { handleClientError } from '@/lib/errorHandler';
-import Link from 'next/link';
 
 function SignupForm() {
   async function action(formData: FormData) {
@@ -23,21 +22,19 @@ function SignupForm() {
             name="email"
             id="email"
             type="email"
-            placeholder="m@example.com"
+            placeholder="joe@gmail.com"
             required
           />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
-            <Link href="#" className="ml-auto inline-block text-sm underline">
-              Forgot your password?
-            </Link>
           </div>
           <Input
             name="password"
             id="password"
             type="password"
+            placeholder="********"
             required
             minLength={PASSWORD_MIN_LENGTH}
           />
