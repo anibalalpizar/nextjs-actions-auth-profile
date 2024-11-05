@@ -14,7 +14,7 @@ export default async function HomeLayout({
   return (
     <>
       <nav className="flex flex-col items-center justify-center">
-        <Navbar />
+        <Navbar user={user} />
       </nav>
       <main className="container mx-auto">{children}</main>
     </>
