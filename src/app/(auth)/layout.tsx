@@ -1,3 +1,4 @@
+import { ModeToggle } from '@/components/common/ThemeToggle';
 import { getAuthenticatedSession } from '@/lib/session';
 import { redirect } from 'next/navigation';
 
@@ -10,5 +11,12 @@ export default async function AuthLayout({
 
   if (user) return redirect('/');
 
-  return children;
+  return (
+    <>
+      <div className="absolute right-4 top-4">
+        <ModeToggle />
+      </div>
+      {children}
+    </>
+  );
 }
