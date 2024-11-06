@@ -1,19 +1,8 @@
 import Link from 'next/link';
 import type { User } from '@prisma/client';
-import { Menu, Settings, User as UserIcon } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
-import { ModeToggle } from '@/components/common/ThemeToggle';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -28,7 +17,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import LogoutButton from './logout-button';
+import UserMenu from './user-menu';
+import { ModeToggle } from '@/components/common/ThemeToggle';
 
 export function Navbar({ user }: { user: User }) {
   const menuItems = [
@@ -82,49 +72,10 @@ export function Navbar({ user }: { user: User }) {
             </div>
           </SheetContent>
         </Sheet>
-
         <div className="flex-1" />
-
         <div className="flex items-center space-x-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <ModeToggle />
-            </DropdownMenuTrigger>
-          </DropdownMenu>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="cursor-pointer hover:opacity-80">
-                <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end" forceMount>
-              <DropdownMenuLabel className="font-normal">
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
-                  </p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    {user.email}
-                  </p>
-                </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <UserIcon className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <LogoutButton />
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ModeToggle />
+          <UserMenu user={user} />
         </div>
       </div>
     </nav>
