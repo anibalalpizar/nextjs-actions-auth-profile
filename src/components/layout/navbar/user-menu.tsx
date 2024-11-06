@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { User } from '@prisma/client';
-import { Settings, User as UserIcon } from 'lucide-react';
+import type { User } from '@prisma/client';
 import { ROUTES } from '@/constants';
+import { Settings, User as UserIcon } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
