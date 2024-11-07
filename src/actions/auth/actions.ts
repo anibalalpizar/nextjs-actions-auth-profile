@@ -8,8 +8,6 @@ import {
   setSession,
 } from '@/lib/session';
 import { signinSchema, signupSchema } from '@/schemas/authSchema';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export const signin = async (formData: FormData) => {
   const user = await getAuthenticatedSession();
@@ -58,8 +56,9 @@ export const signin = async (formData: FormData) => {
     email: userExists.email,
   });
 
-  revalidatePath('/');
-  return redirect('/');
+  return {
+    success: 'Logged in successfully',
+  };
 };
 
 export const signup = async (formData: FormData) => {
@@ -96,8 +95,9 @@ export const signup = async (formData: FormData) => {
     email: userCreated.email,
   });
 
-  revalidatePath('/');
-  return redirect('/');
+  return {
+    success: 'User created successfully',
+  };
 };
 
 export const signout = async () => await removeSession();

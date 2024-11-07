@@ -5,13 +5,14 @@ import SubmitButton from '@/app/(auth)/signup/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PASSWORD_MIN_LENGTH } from '@/constants';
-import { handleClientError } from '@/lib/errorHandler';
+import { handleClientMessage } from '@/lib/toastHandler';
 
 function SignupForm() {
   async function action(formData: FormData) {
-    const { error } = await signup(formData);
+    const { success, error } = await signup(formData);
 
-    if (error) handleClientError(error);
+    if (error) handleClientMessage(error, 'error');
+    else if (success) handleClientMessage(success, 'success');
   }
   return (
     <form action={action}>

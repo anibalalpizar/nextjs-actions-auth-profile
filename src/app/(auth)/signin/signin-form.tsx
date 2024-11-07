@@ -1,16 +1,17 @@
 'use client';
 
+import { handleClientMessage } from '@/lib/toastHandler';
 import { signin } from '@/actions/auth/actions';
 import SubmitButton from '@/app/(auth)/signin/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { handleClientError } from '@/lib/errorHandler';
 
 function SigninForm() {
   async function action(formData: FormData) {
-    const { error } = await signin(formData);
+    const { success, error } = await signin(formData);
 
-    if (error) handleClientError(error);
+    if (error) handleClientMessage(error, 'error');
+    else if (success) handleClientMessage(success, 'success');
   }
 
   return (
