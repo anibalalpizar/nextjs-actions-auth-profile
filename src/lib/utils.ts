@@ -19,3 +19,5 @@ export const getChangedFields = <T extends object>(
     }
     return changes;
   }, {} as Partial<T>);
+
+export const convertBuffer = (buffer: Buffer) => Buffer.from(buffer).toString('base64');
