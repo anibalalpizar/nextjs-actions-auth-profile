@@ -23,7 +23,12 @@ function UserMenu({ user }: { user: User }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer hover:opacity-80">
-          <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&h=256&fit=crop" />
+          <AvatarImage
+            src={
+              user.avatar ? `data:image/jpeg;base64,${user.avatar}` : undefined
+            }
+            alt={`${user.name}'s avatar`}
+          />
           <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
