@@ -3,7 +3,6 @@ import type { User } from '@prisma/client';
 import { ROUTES } from '@/constants';
 import { Settings, User as UserIcon } from 'lucide-react';
 
-import { convertBuffer } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -25,11 +24,7 @@ function UserMenu({ user }: { user: User }) {
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer hover:opacity-80">
           <AvatarImage
-            src={
-              user.avatar
-                ? `data:image/png;base64,${convertBuffer(user.avatar)}`
-                : undefined
-            }
+            src={user.avatarUrl ? user.avatarUrl : undefined}
             alt={`${user.name}'s avatar`}
           />
           <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
