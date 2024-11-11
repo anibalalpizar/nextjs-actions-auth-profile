@@ -1,17 +1,14 @@
-'use client';
-
 import type { User } from '@prisma/client';
-import { Mail, Upload, UserIcon } from 'lucide-react';
+import { Mail, UserIcon, Image as ImageIcon } from 'lucide-react';
 
 import { updateProfile } from '@/actions/profile/actions';
+import { handleClientMessage } from '@/lib/toastHandler';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Skeleton } from '@/components/ui/skeleton';
-import { handleClientMessage } from '@/lib/toastHandler';
 
-function ProfileForm({ user }: { user: User | null }) {
+function ProfileForm({ user }: { user: User }) {
   async function action(formData: FormData) {
     const { success, error } = await updateProfile(formData);
 
@@ -19,48 +16,35 @@ function ProfileForm({ user }: { user: User | null }) {
     else if (success) handleClientMessage(success, 'success');
   }
 
-  if (!user) {
-    return (
-      <div className="flex flex-col items-center space-y-4">
-        <Skeleton className="w-32 h-32 rounded-full" />
-        <Skeleton className="w-32 h-6" />
-        <Skeleton className="w-32 h-6" />
-      </div>
-    );
-  }
-
   return (
     <form action={action}>
       <div className="flex flex-col items-center space-y-4">
         <Avatar className="w-32 h-32">
           <AvatarImage
-            src={
-              user.avatar ? `data:image/jpeg;base64,${user.avatar}` : undefined
-            }
+            src={user.avatarUrl ? user.avatarUrl : undefined}
             alt={`${user.name}'s avatar`}
           />
           <AvatarFallback>
             <UserIcon size={32} />
           </AvatarFallback>
         </Avatar>
-        <div className="flex items-center space-x-2">
-          <Input
-            name="avatar"
-            id="avatar"
-            type="file"
-            accept="image/*"
-            className="hidden"
-          />
-          <Label
-            htmlFor="avatar"
-            className="cursor-pointer flex items-center space-x-2 text-sm hover:text-gray-800"
-          >
-            <Upload size={16} />
-            <span>Change Photo</span>
-          </Label>
-        </div>
       </div>
       <div className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="avatarUrl" className="flex items-center space-x-2">
+            <ImageIcon className="text-gray-500" size={16} />
+            <span>Avatar URL</span>
+          </Label>
+          <Input
+            name="avatarUrl"
+            id="avatarUrl"
+            type="url"
+            placeholder="https://example.com/image.jpg"
+            defaultValue={user.avatarUrl || ''}
+            className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+          />
+        </div>
+
         <div className="space-y-2">
           <Label htmlFor="name" className="flex items-center space-x-2">
             <UserIcon className="text-gray-500" size={16} />
