@@ -1,7 +1,8 @@
-import { getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
-import { prisma } from './prisma';
 import { cache } from 'react';
+import { getIronSession } from 'iron-session';
+
+import { prisma } from './prisma';
 
 const { SESSION_SECRET, SESSION_NAME, NODE_ENV } = process.env;
 
