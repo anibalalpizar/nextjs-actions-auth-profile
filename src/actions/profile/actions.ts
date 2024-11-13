@@ -34,7 +34,7 @@ export const updateProfile = async (formData: FormData) => {
       error: 'No changes detected',
     };
 
-  await prisma.user.update({
+  const updatedUser = await prisma.user.update({
     where: { id: user.id },
     data: changedFields,
   });
@@ -43,5 +43,6 @@ export const updateProfile = async (formData: FormData) => {
 
   return {
     success: 'Profile updated',
+    updatedUser,
   };
 };

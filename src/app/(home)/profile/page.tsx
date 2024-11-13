@@ -6,6 +6,7 @@ import { getUser } from '@/actions/profile/actions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import ProfileForm from './profile-form';
+import { User } from '@prisma/client';
 
 export default function Page() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,6 +17,8 @@ export default function Page() {
     }
     fetchUser();
   }, []);
+
+  const handlerUserUpdate = (updatedUser: User) => setUser(updatedUser);
 
   return (
     <div className="flex items-center justify-center h-full p-4">
@@ -31,7 +34,7 @@ export default function Page() {
               <Skeleton className="w-32 h-6" />
             </div>
           ) : (
-            <ProfileForm user={user} />
+            <ProfileForm user={user} onUserUpdate={handlerUserUpdate} />
           )}
         </CardContent>
       </Card>

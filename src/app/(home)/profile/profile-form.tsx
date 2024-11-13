@@ -8,12 +8,21 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-function ProfileForm({ user }: { user: User }) {
+function ProfileForm({
+  user,
+  onUserUpdate,
+}: {
+  user: User;
+  onUserUpdate: (updatedUser: User) => void;
+}) {
   async function action(formData: FormData) {
-    const { success, error } = await updateProfile(formData);
+    const { success, error, updatedUser } = await updateProfile(formData);
 
     if (error) handleClientMessage(error, 'error');
-    else if (success) handleClientMessage(success, 'success');
+    else if (success) {
+      handleClientMessage(success, 'success');
+      onUserUpdate(updatedUser);
+    }
   }
 
   return (
